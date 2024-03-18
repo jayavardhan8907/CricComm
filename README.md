@@ -162,7 +162,7 @@ outputs = model.generate(**inputs, max_new_tokens = 300, use_cache = True)
 response = tokenizer.batch_decode(outputs)[0]
 ```
 
-Refer to the [blog post](https://ravidesetty.medium.com/introducing-indic-gemma-7b-2b-instruction-tuned-model-on-9-indian-languages-navarasa-86bc81b4a282) for sample examples.
+Refer to the [blog post](https://ravidesetty.medium.com/introducing-navarasa-2-0-indic-gemma-7b-2b-instruction-tuned-model-on-15-indian-languages-31f6565b2750) for sample examples.
 
 Please check our [Code Repository](https://github.com/TeluguLLMLabs/Indic-gemma-7b-Navarasa) for training and inference scripts.
 
