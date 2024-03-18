@@ -1,200 +1,172 @@
 ---
+license: other
+license_name: gemma-terms-of-use
+license_link: https://ai.google.dev/gemma/terms
+base_model: google/gemma-2b
+datasets:
+- ravithejads/samvaad-hi-filtered
+- Telugu-LLM-Labs/telugu_teknium_GPTeacher_general_instruct_filtered_romanized
+- Telugu-LLM-Labs/telugu_alpaca_yahma_cleaned_filtered_romanized
+- Telugu-LLM-Labs/sindhi_alpaca_yahma_cleaned_filtered
+- Telugu-LLM-Labs/urdu_alpaca_yahma_cleaned_filtered
+- Telugu-LLM-Labs/marathi_alpaca_yahma_cleaned_filtered
+- Telugu-LLM-Labs/assamese_alpaca_yahma_cleaned_filtered
+- Telugu-LLM-Labs/konkani_alpaca_yahma_cleaned_filtered
+- Telugu-LLM-Labs/nepali_alpaca_yahma_cleaned_filtered
+- abhinand/tamil-alpaca
+- Tensoic/airoboros-3.2_kn
+- Tensoic/gpt-teacher_kn
+- VishnuPJ/Alpaca_Instruct_Malayalam
+- Tensoic/Alpaca-Gujarati
+- HydraIndicLM/punjabi_alpaca_52K
+- HydraIndicLM/bengali_alpaca_dolly_67k
+- OdiaGenAI/Odia_Alpaca_instructions_52k
+- yahma/alpaca-cleaned
+language:
+- te
+- en
+- ta
+- ml
+- mr
+- hi
+- kn
+- sd
+- ne
+- ur
+- as
+- gu
+- bn
+- pa
 library_name: transformers
-tags:
-- unsloth
+pipeline_tag: text-generation
 ---
 
-# Model Card for Model ID
+# Indic-gemma-2b-finetuned-sft-Navarasa-2.0
+
+This model is based on [google/gemma-2b](https://huggingface.co/google/gemma-2b) and hase been LoRA finetuned on 15 Indian languages and English language instruction datasets:
+
+1. #### Hindi - [ravithejads/samvaad-hi-filtered](https://huggingface.co/datasets/ravithejads/samvaad-hi-filtered), [HydraIndicLM/hindi_alpaca_dolly_67k](https://huggingface.co/datasets/HydraIndicLM/hindi_alpaca_dolly_67k)(sampled)
+2. #### Telugu - [Telugu-LLM-Labs/telugu_alpaca_yahma_cleaned_filtered_romanized](https://huggingface.co/datasets/Telugu-LLM-Labs/telugu_alpaca_yahma_cleaned_filtered_romanized), [Telugu-LLM-Labs/telugu_teknium_GPTeacher_general_instruct_filtered_romanized](https://huggingface.co/datasets/Telugu-LLM-Labs/telugu_teknium_GPTeacher_general_instruct_filtered_romanized)
+3. #### Marathi - [Telugu-LLM-Labs/sindhi_alpaca_yahma_cleaned_filtered](https://huggingface.co/datasets/Telugu-LLM-Labs/sindhi_alpaca_yahma_cleaned_filtered)
+4. #### Urdu - [Telugu-LLM-Labs/urdu_alpaca_yahma_cleaned_filtered](https://huggingface.co/datasets/Telugu-LLM-Labs/urdu_alpaca_yahma_cleaned_filtered)
+5. #### Assamese - [Telugu-LLM-Labs/assamese_alpaca_yahma_cleaned_filtered](https://huggingface.co/datasets/Telugu-LLM-Labs/assamese_alpaca_yahma_cleaned_filtered)
+6. #### Konkani - [Telugu-LLM-Labs/konkani_alpaca_yahma_cleaned_filtered](https://huggingface.co/datasets/Telugu-LLM-Labs/konkani_alpaca_yahma_cleaned_filtered)
+7. #### Nepali - [Telugu-LLM-Labs/nepali_alpaca_yahma_cleaned_filtered](https://huggingface.co/datasets/Telugu-LLM-Labs/nepali_alpaca_yahma_cleaned_filtered)
+8. #### Sindhi - [Telugu-LLM-Labs/sindhi_alpaca_yahma_cleaned_filtered](https://huggingface.co/datasets/Telugu-LLM-Labs/sindhi_alpaca_yahma_cleaned_filtered)
+9. #### Tamil - [abhinand/tamil-alpaca](https://huggingface.co/datasets/abhinand/tamil-alpaca)
+10. #### Kannada - [Tensoic/airoboros-3.2_kn](https://huggingface.co/datasets/Tensoic/airoboros-3.2_kn), [Tensoic/gpt-teacher_kn](https://huggingface.co/datasets/Tensoic/gpt-teacher_kn)
+11. #### Malayalam - [VishnuPJ/Alpaca_Instruct_Malayalam](https://huggingface.co/datasets/VishnuPJ/Alpaca_Instruct_Malayalam)
+12. #### Gujarati - [Tensoic/Alpaca-Gujarati](https://huggingface.co/datasets/Tensoic/Alpaca-Gujarati)
+13. #### Punjabi - [HydraIndicLM/punjabi_alpaca_52K](https://huggingface.co/datasets/HydraIndicLM/punjabi_alpaca_52K)
+14. #### Bengali - [HydraIndicLM/bengali_alpaca_dolly_67k](https://huggingface.co/datasets/HydraIndicLM/bengali_alpaca_dolly_67k)(alpaca filtered)
+15. #### Odia - [OdiaGenAI/Odia_Alpaca_instructions_52k](https://huggingface.co/datasets/OdiaGenAI/Odia_Alpaca_instructions_52k), [OdiaGenAI/gpt-teacher-roleplay-odia-3k](https://huggingface.co/datasets/OdiaGenAI/gpt-teacher-roleplay-odia-3k)
+16. #### English - [yahma/alpaca-cleaned](https://huggingface.co/datasets/yahma/alpaca-cleaned)
+
+The model is finetuned using [unsloth](https://github.com/unslothai/unsloth) library and we provide inference code using the same for faster inference. Alternatively you can use HuggingFace Library for inference.
+
+# Training Details:
+
+The model is trained on approx 650K instruction samples.
+1. GPU: 1 A100, 80GB
+2. Time: 45 Hours
+3. Platform: [E2E Networks](https://www.e2enetworks.com/)
+# Installation
 
-<!-- Provide a quick summary of what the model is/does. -->
+`!pip install -U xformers --index-url https://download.pytorch.org/whl/cu121`
+`!pip install "unsloth[kaggle-new] @git+https://github.com/unslothai/unsloth.git@nightly"`
 
+# Input Text Format
 
+```
+### Instruction: {instruction}
 
-## Model Details
+### Input: {input}
 
-### Model Description
+## Response: {response}
+```
 
-<!-- Provide a longer summary of what this model is. -->
+# Inference With Unsloth
 
-This is the model card of a 🤗 transformers model that has been pushed on the Hub. This model card has been automatically generated.
+```python3
+from unsloth import FastLanguageModel
+import torch
+max_seq_length = 2048
+dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
+load_in_4bit = False 
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name = "Telugu-LLM-Labs/Indic-gemma-2b-finetuned-sft-Navarasa-2.0",
+    max_seq_length = max_seq_length,
+    dtype = dtype,
+    load_in_4bit = load_in_4bit,
+    device_map="auto"
+)
+FastLanguageModel.for_inference(model) # Enable native 2x faster inference
 
-- **Developed by:** [More Information Needed]
-- **Funded by [optional]:** [More Information Needed]
-- **Shared by [optional]:** [More Information Needed]
-- **Model type:** [More Information Needed]
-- **Language(s) (NLP):** [More Information Needed]
-- **License:** [More Information Needed]
-- **Finetuned from model [optional]:** [More Information Needed]
+input_prompt = """
+### Instruction:
+{}
 
-### Model Sources [optional]
+### Input:
+{}
 
-<!-- Provide the basic links for the model. -->
+### Response:
+{}"""
 
-- **Repository:** [More Information Needed]
-- **Paper [optional]:** [More Information Needed]
-- **Demo [optional]:** [More Information Needed]
+input_text = input_prompt.format(
+        "Tranlsate following sentence to Hindi.", # instruction
+        "India is a great country.", # input
+        "", # output - leave this blank for generation!
+    )
 
-## Uses
+inputs = tokenizer([input_text], return_tensors = "pt").to("cuda")
 
-<!-- Address questions around how the model is intended to be used, including the foreseeable users of the model and those affected by the model. -->
+outputs = model.generate(**inputs, max_new_tokens = 300, use_cache = True)
+response = tokenizer.batch_decode(outputs)
+```
 
-### Direct Use
+# Inference with HuggingFace
 
-<!-- This section is for the model use without fine-tuning or plugging into a larger ecosystem/app. -->
+```python3
+from peft import AutoModelForCausalLM
+from transformers import AutoTokenizer
+import torch
 
-[More Information Needed]
+model = AutoModelForCausalLM.from_pretrained(
+    "Telugu-LLM-Labs/Indic-gemma-2b-finetuned-sft-Navarasa-2.0",
+    load_in_4bit = False,
+    token = hf_token
+)
+model.to("cuda")
 
-### Downstream Use [optional]
+tokenizer = AutoTokenizer.from_pretrained("Telugu-LLM-Labs/Indic-gemma-2b-finetuned-sft-Navarasa-2.0")
 
-<!-- This section is for the model use when fine-tuned for a task, or when plugged into a larger ecosystem/app -->
+input_prompt = """
+### Instruction:
+{}
 
-[More Information Needed]
+### Input:
+{}
 
-### Out-of-Scope Use
+### Response:
+{}"""
 
-<!-- This section addresses misuse, malicious use, and uses that the model will not work well for. -->
+input_text = input_prompt.format(
+        "Tranlsate following sentence to Hindi.", # instruction
+        "India is a great country.", # input
+        "", # output - leave this blank for generation!
+    )
 
-[More Information Needed]
+inputs = tokenizer([input_text], return_tensors = "pt").to("cuda")
 
-## Bias, Risks, and Limitations
+outputs = model.generate(**inputs, max_new_tokens = 300, use_cache = True)
+response = tokenizer.batch_decode(outputs)[0]
+```
 
-<!-- This section is meant to convey both technical and sociotechnical limitations. -->
+Refer to the [blog post](https://ravidesetty.medium.com/introducing-indic-gemma-7b-2b-instruction-tuned-model-on-9-indian-languages-navarasa-86bc81b4a282) for sample examples.
 
-[More Information Needed]
+Please check our [Code Repository](https://github.com/TeluguLLMLabs/Indic-gemma-7b-Navarasa) for training and inference scripts.
 
-### Recommendations
 
-<!-- This section is meant to convey recommendations with respect to the bias, risk, and technical limitations. -->
+# Developers:
 
-Users (both direct and downstream) should be made aware of the risks, biases and limitations of the model. More information needed for further recommendations.
-
-## How to Get Started with the Model
-
-Use the code below to get started with the model.
-
-[More Information Needed]
-
-## Training Details
-
-### Training Data
-
-<!-- This should link to a Dataset Card, perhaps with a short stub of information on what the training data is all about as well as documentation related to data pre-processing or additional filtering. -->
-
-[More Information Needed]
-
-### Training Procedure
-
-<!-- This relates heavily to the Technical Specifications. Content here should link to that section when it is relevant to the training procedure. -->
-
-#### Preprocessing [optional]
-
-[More Information Needed]
-
-
-#### Training Hyperparameters
-
-- **Training regime:** [More Information Needed] <!--fp32, fp16 mixed precision, bf16 mixed precision, bf16 non-mixed precision, fp16 non-mixed precision, fp8 mixed precision -->
-
-#### Speeds, Sizes, Times [optional]
-
-<!-- This section provides information about throughput, start/end time, checkpoint size if relevant, etc. -->
-
-[More Information Needed]
-
-## Evaluation
-
-<!-- This section describes the evaluation protocols and provides the results. -->
-
-### Testing Data, Factors & Metrics
-
-#### Testing Data
-
-<!-- This should link to a Dataset Card if possible. -->
-
-[More Information Needed]
-
-#### Factors
-
-<!-- These are the things the evaluation is disaggregating by, e.g., subpopulations or domains. -->
-
-[More Information Needed]
-
-#### Metrics
-
-<!-- These are the evaluation metrics being used, ideally with a description of why. -->
-
-[More Information Needed]
-
-### Results
-
-[More Information Needed]
-
-#### Summary
-
-
-
-## Model Examination [optional]
-
-<!-- Relevant interpretability work for the model goes here -->
-
-[More Information Needed]
-
-## Environmental Impact
-
-<!-- Total emissions (in grams of CO2eq) and additional considerations, such as electricity usage, go here. Edit the suggested text below accordingly -->
-
-Carbon emissions can be estimated using the [Machine Learning Impact calculator](https://mlco2.github.io/impact#compute) presented in [Lacoste et al. (2019)](https://arxiv.org/abs/1910.09700).
-
-- **Hardware Type:** [More Information Needed]
-- **Hours used:** [More Information Needed]
-- **Cloud Provider:** [More Information Needed]
-- **Compute Region:** [More Information Needed]
-- **Carbon Emitted:** [More Information Needed]
-
-## Technical Specifications [optional]
-
-### Model Architecture and Objective
-
-[More Information Needed]
-
-### Compute Infrastructure
-
-[More Information Needed]
-
-#### Hardware
-
-[More Information Needed]
-
-#### Software
-
-[More Information Needed]
-
-## Citation [optional]
-
-<!-- If there is a paper or blog post introducing the model, the APA and Bibtex information for that should go in this section. -->
-
-**BibTeX:**
-
-[More Information Needed]
-
-**APA:**
-
-[More Information Needed]
-
-## Glossary [optional]
-
-<!-- If relevant, include terms and calculations in this section that can help readers understand the model or model card. -->
-
-[More Information Needed]
-
-## More Information [optional]
-
-[More Information Needed]
-
-## Model Card Authors [optional]
-
-[More Information Needed]
-
-## Model Card Contact
-
-[More Information Needed]
+The model is a collaborative effort by [Ravi Theja](https://twitter.com/ravithejads) and [Ramsri Goutham](https://twitter.com/ramsri_goutham). Feel free to DM either of us if you have any questions.
