@@ -37,6 +37,7 @@ language:
 - gu
 - bn
 - pa
+- or
 library_name: transformers
 pipeline_tag: text-generation
 ---
