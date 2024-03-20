@@ -128,8 +128,7 @@ response = tokenizer.batch_decode(outputs)
 # Inference with HuggingFace
 
 ```python3
-from peft import AutoModelForCausalLM
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 
 model = AutoModelForCausalLM.from_pretrained(
